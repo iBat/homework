@@ -32,7 +32,7 @@ func NewPagesHandler(router fiber.Router) *PagesHandler {
 }
 
 func (h *PagesHandler) HomePage(c *fiber.Ctx) error {
-	component := views.Main()
+	component := views.Main(h.categories)
 
 	return tadaptor.Render(c, &component)
 }

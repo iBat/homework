@@ -1,0 +1,19 @@
+package layout
+
+templ Footer() {
+    @FooterStyle()
+    <footer class="footer">
+        <div class="footer-content">
+            &copy; 2025 iBat News. All rights reserved.
+        </div>
+    </footer>
+}
+
+templ FooterStyle() {
+    <style>
+        .footer {
+            background: var(--color-background);
+            color: var(--color-white);
+        }
+    </style>
+}
