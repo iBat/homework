@@ -1,0 +1,37 @@
+package layout
+
+import "iBat/homework/views/components"
+
+templ Header(caption string) {
+    @HeaderStyle()
+    <header class="header">
+        <div class="left-header">
+            { caption }
+            @Menu()
+        </div>
+        <div class="right-header">
+            @components.Search("Найти новость")
+            @components.Account()
+        </div>
+    </header>
+}
+
+templ HeaderStyle() {
+    <style>
+        .header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background: #222222;
+            color: var(--color-white);
+        }
+        .left-header, .right-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 40px;
+            padding: 0 20px;
+        }
+    </style>
+}

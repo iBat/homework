@@ -1,0 +1,17 @@
+package views
+
+import (
+    "iBat/homework/views/layout"
+)
+
+templ Main() {
+    @layout.Layout(layout.LayoutProps{
+        Title: "Новости",
+        Description: "Главная страница",
+    }) {
+        <main>
+            @layout.Header("Новости")
+            Main
+        </main>
+    }
+}
