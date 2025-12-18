@@ -1,6 +1,11 @@
 package pages
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"iBat/homework/pkg/tadaptor"
+	"iBat/homework/views"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 type PagesHandler struct {
 	router     fiber.Router
@@ -27,7 +32,7 @@ func NewPagesHandler(router fiber.Router) *PagesHandler {
 }
 
 func (h *PagesHandler) HomePage(c *fiber.Ctx) error {
-	return c.Render("home", fiber.Map{
-		"Categories": h.categories,
-	})
+	component := views.Main(h.categories)
+
+	return tadaptor.Render(c, &component)
 }

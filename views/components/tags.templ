@@ -1,0 +1,19 @@
+package components
+
+templ Tags(categories []string) {
+    @TagsStyle()
+    <ul class="tags">
+        for _, cat := range categories {
+        <li class="tags-item">{ cat }</li>
+        }
+    </ul>
+}
+
+templ TagsStyle() {
+    <style>
+        .tags {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+}

@@ -1,0 +1,30 @@
+package components
+
+templ Account() {
+    @AccountStyle()
+    <div class="account-container">
+        <img class="account-avatar" src="/public/images/avatar.png" alt="User Avatar" />
+        <span class="account-username">Username</span>
+    </div>
+}
+
+templ AccountStyle() {
+    <style>
+        .account-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .account-username {
+            color: var(--color-white);
+            font-size: 16px;
+        }
+    </style>
+}

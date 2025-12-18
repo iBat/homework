@@ -1,0 +1,46 @@
+package components
+
+templ Search(placeholder string) {
+    @SearchStyle()
+    <form class="search-form" action="/search" method="GET">
+        <input
+            type="text"
+            name="q"
+            class="search-input"
+            placeholder={placeholder}
+        />
+        <button type="submit" class="search-button">Search</button>
+    </form>
+}
+
+templ SearchStyle() {
+    <style>
+        .search-form {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-button:hover {
+            background-color: var(--color-primary-dark);
+        }
+    </style>
+}

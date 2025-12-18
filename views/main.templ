@@ -1,0 +1,21 @@
+package views
+
+import (
+    "iBat/homework/views/layout"
+	"iBat/homework/views/components"
+)
+
+templ Main(categories []string) {
+    @layout.Layout(layout.LayoutProps{
+        Title: "Новости",
+        Description: "Главная страница",
+    }) {
+        <main>
+            @layout.Header("Новости")
+            
+            @components.Tags(categories)
+
+            @layout.Footer()
+        </main>
+    }
+}
