@@ -1,0 +1,42 @@
+package components
+
+import "time"
+
+type PostCardProps struct {
+    Image string
+    Title string
+    Explanation string
+    Author string
+    Date time.Time
+}
+
+templ PostCard(props PostCardProps) {
+    @PostCardStyle()
+    <article class="post-card">
+        <img class="post-card-img" src={templ.SafeURL(props.Image)} alt="post picture" />
+        <div class="post-card-content">
+            <h2>{props.Title}</h2>
+            <p>{props.Explanation}</p>
+        </div>
+        <div class="post-card__info">
+            <img class="post-card__info-avatar" src="/public/images/avatar.png" alt="User Avatar" />
+            <span class="post-card__info-text">
+                <div class="post-card__info-author">{props.Author}</div>
+                <div class="post-card__info-date">{props.Date.String()}</div>
+            </span>
+        </div>
+    </article>
+}
+
+templ PostCardStyle() {
+    <style>
+        .post-card {
+            width: 360px;
+            height: 389px;
+        }
+        .post-card-img {
+            width: 340px;
+            height: 190px;
+        }
+    </style>
+}

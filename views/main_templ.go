@@ -11,6 +11,7 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"iBat/homework/views/components"
 	"iBat/homework/views/layout"
+	"time"
 )
 
 func Main(categories []string) templ.Component {
@@ -58,11 +59,37 @@ func Main(categories []string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<hr>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.SingleContentCard(components.SingleContentCardProps{
+				BackgroundImage: "./public/images/single-card-bg.jpg",
+				Title:           "Как безопасно водить",
+				Explanation:     "Длинный текст про то, как можно безопасно водить автомобиль",
+			}).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<hr>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.PostCard(components.PostCardProps{
+				Image:       "./public/images/post-card-bg.jpg",
+				Title:       "Открытие сезона байдарок",
+				Explanation: "Сегодня был открыт сезон путешествия на байдарках, где вы можете поучаствовать в ...",
+				Author:      "Михаил Аршинов",
+				Date:        time.Date(2025, time.August, 18, 12, 0, 0, 0, time.Local),
+			}).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 			templ_7745c5c3_Err = layout.Footer().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</main>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</main>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

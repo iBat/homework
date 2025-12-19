@@ -3,6 +3,7 @@ package views
 import (
     "iBat/homework/views/layout"
 	"iBat/homework/views/components"
+	"time"
 )
 
 templ Main(categories []string) {
@@ -14,6 +15,20 @@ templ Main(categories []string) {
             @layout.Header("Новости")
             
             @components.Tags(categories)
+            <hr />
+            @components.SingleContentCard(components.SingleContentCardProps{
+                BackgroundImage: "./public/images/single-card-bg.jpg",
+                Title: "Как безопасно водить",
+                Explanation: "Длинный текст про то, как можно безопасно водить автомобиль",
+            })
+            <hr />
+            @components.PostCard(components.PostCardProps{
+                Image: "./public/images/post-card-bg.jpg",
+                Title: "Открытие сезона байдарок",
+                Explanation: "Сегодня был открыт сезон путешествия на байдарках, где вы можете поучаствовать в ...",
+                Author: "Михаил Аршинов",
+                Date: time.Date(2025, time.August, 18, 12, 0, 0, 0, time.Local),
+            })
 
             @layout.Footer()
         </main>
