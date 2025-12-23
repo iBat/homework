@@ -1,0 +1,35 @@
+package components
+
+import "iBat/homework/pkg/utils"
+
+type InputProps struct {
+    Label string
+    Name string
+}
+
+templ Input(props InputProps) {
+    {{ id := "#" + utils.RandString(5) }}
+    @InputStyle()
+    <label for={id}>{props.Label}</label>
+    <input
+        id={id}
+        name={props.Name}
+        class="input"
+    />
+}
+
+templ InputStyle() {
+    <style>
+        .input {
+            height: 80px;
+            width: 435px;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: var(--color-white);
+            border: none;
+        }
+        .input::placeholder {
+            color: var(--color-gray)
+        }
+    </style>
+}

@@ -27,12 +27,19 @@ func NewPagesHandler(router fiber.Router) *PagesHandler {
 	}
 
 	handler.router.Get("/", handler.HomePage)
+	handler.router.Get("/register", handler.Register)
 
 	return handler
 }
 
 func (h *PagesHandler) HomePage(c *fiber.Ctx) error {
 	component := views.Main(h.categories)
+
+	return tadaptor.Render(c, &component)
+}
+
+func (h *PagesHandler) Register(c *fiber.Ctx) error {
+	component := views.Register()
 
 	return tadaptor.Render(c, &component)
 }

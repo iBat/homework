@@ -8,7 +8,7 @@ package components
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Account() templ.Component {
+func SubmitButton() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,11 +29,19 @@ func Account() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = AccountStyle().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = SubmitButtonStyle().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<a class=\"account-container\" href=\"/register\"><img class=\"account-avatar\" src=\"/public/images/avatar.png\" alt=\"User Avatar\"> <span class=\"account-username\">Username</span></a>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<button class=\"submit-button\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ_7745c5c3_Var1.Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</button>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,7 +49,7 @@ func Account() templ.Component {
 	})
 }
 
-func AccountStyle() templ.Component {
+func SubmitButtonStyle() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -62,7 +70,7 @@ func AccountStyle() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<style>\n        .account-container {\n            display: flex;\n            align-items: center;\n            gap: 10px;\n        }\n\n        .account-avatar {\n            width: 40px;\n            height: 40px;\n            border-radius: 50%;\n        }\n\n        .account-username {\n            color: var(--color-white);\n            font-size: 16px;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<style>\n        .submit-button {\n            height: 80px;\n            display: inline-block;\n            padding: 14px 28px;\n            background-color: var(--color-primary);\n            color: var(--color-white);\n            border: none;\n            border-radius: 20px;\n            cursor: pointer;\n            transition: background-color 0.3s ease;\n            font-family: \"Open sans\";\n            font-size: 18px;\n            font-style: normal;\n            font-weight: 600;\n        }\n\n        .submit-button:hover {\n            background-color: var(--color-primary-dark);\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

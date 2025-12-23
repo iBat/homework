@@ -2,6 +2,7 @@ package main
 
 import (
 	"iBat/homework/config"
+	"iBat/homework/internal/api"
 	"iBat/homework/internal/pages"
 	"log/slog"
 	"os"
@@ -25,6 +26,7 @@ func main() {
 	app.Static("/public", "./public")
 
 	pages.NewPagesHandler(app)
+	api.NewApiHandler(app)
 
 	if err := app.Listen(":3000"); err != nil {
 		slog.Error("Failed to start server", slog.String("error", err.Error()))
