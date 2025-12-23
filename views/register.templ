@@ -1,0 +1,48 @@
+package views
+
+import "iBat/homework/views/layout"
+import "iBat/homework/views/components"
+
+templ Register() {
+    @RegisterFormStyle()
+    @layout.Layout(layout.LayoutProps{
+        Title: "Регистрация",
+        Description: "Регистрация нового пользователя",
+    }) {
+        <main>
+            @layout.Header("Регистрация на сайте")
+
+            <div id="register-result"></div>
+            <div class="register-form">
+                <form hx-post="/api/register" hx-trigger="submit" hx-target="#register-result" hx-swap="innerHTML">
+                    <div class="register-form__inputs">
+                        @components.Input(components.InputProps{
+                            Label: "Имя",
+                            Name: "name",
+                        })
+                        @components.Input(components.InputProps{
+                            Label: "Email",
+                            Name: "email",
+                        })
+                        @components.Input(components.InputProps{
+                            Label: "Пароль",
+                            Name: "password",
+                        })
+                    </div>
+                    @components.SubmitButton() {
+                        <div class="register-form__submit">Зарегистрироваться</div>
+                    }
+                </form>
+            </div>
+        </main>
+    }
+}
+
+templ RegisterFormStyle() {
+    <style>
+        .register-form__inputs {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+}
