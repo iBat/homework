@@ -4,6 +4,8 @@ import (
 	"iBat/homework/config"
 	"iBat/homework/internal/api"
 	"iBat/homework/internal/pages"
+	"iBat/homework/internal/users"
+	"iBat/homework/pkg/database"
 	"log/slog"
 	"os"
 
@@ -19,14 +21,22 @@ func main() {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+	dbConfig := config.NewDatabaseConfig()
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
 	app.Use(slogfiber.New(logger))
 	app.Use(recover.New())
 	app.Static("/public", "./public")
+	dbpool := database.CreateDbPool(dbConfig, logger)
+	defer dbpool.Close()
 
+	// Initialize repositories
+	userRepository := users.NewUserRepository(dbpool, logger)
+
+	// Initialize handlers
 	pages.NewPagesHandler(app)
 	api.NewApiHandler(app)
+	users.NewUserHandler(app, userRepository, logger)
 
 	if err := app.Listen(":3000"); err != nil {
 		slog.Error("Failed to start server", slog.String("error", err.Error()))
