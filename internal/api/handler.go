@@ -1,9 +1,11 @@
 package api
 
 import (
+	"iBat/homework/internal/users"
 	"iBat/homework/pkg/tadaptor"
 	"iBat/homework/pkg/validator"
 	"iBat/homework/views/components"
+	"log/slog"
 	"time"
 
 	"github.com/a-h/templ"
@@ -13,12 +15,16 @@ import (
 )
 
 type ApiHandler struct {
-	router fiber.Router
+	router   fiber.Router
+	userRepo *users.UserRepository
+	logger   *slog.Logger
 }
 
-func NewApiHandler(router fiber.Router) *ApiHandler {
+func NewApiHandler(router fiber.Router, userRepo *users.UserRepository, logger *slog.Logger) *ApiHandler {
 	handler := &ApiHandler{
-		router: router,
+		router:   router,
+		userRepo: userRepo,
+		logger:   logger,
 	}
 
 	api := handler.router.Group("/api")
@@ -28,7 +34,7 @@ func NewApiHandler(router fiber.Router) *ApiHandler {
 }
 
 func (h *ApiHandler) register(c *fiber.Ctx) error {
-	form := RegisterForm{
+	form := users.RegisterForm{
 		Name:     c.FormValue("name"),
 		Email:    c.FormValue("email"),
 		Password: c.FormValue("password"),
@@ -44,7 +50,12 @@ func (h *ApiHandler) register(c *fiber.Ctx) error {
 	if len(errors.Errors) > 0 {
 		comp = components.Notification(validator.FormatErrors(errors), components.NotificationFail)
 	} else {
-		comp = components.Notification("Пользователь успешно создан", components.NotificationSuccess)
+		_, err := h.userRepo.CreateUser(form)
+		if err != nil {
+			comp = components.Notification("Ошибка при создании пользователя", components.NotificationFail)
+		} else {
+			comp = components.Notification("Пользователь успешно создан", components.NotificationSuccess)
+		}
 	}
 	time.Sleep(time.Second * 2)
 

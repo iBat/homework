@@ -42,3 +42,16 @@ func (r *UserRepository) CreateUser(form RegisterForm) (string, error) {
 
 	return form.Email, nil
 }
+
+func (r *UserRepository) GetUserByEmail(email string) (*User, error) {
+	query := `SELECT id, name, email, password, created_at FROM users WHERE email=$1`
+	row := r.Dbpool.QueryRow(context.Background(), query, email)
+
+	var user User
+	err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+	if err != nil {
+		r.Logger.Error("Failed to get user by email", slog.String("error", err.Error()))
+		return nil, err
+	}
+	return &user, nil
+}

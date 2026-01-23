@@ -27,10 +27,10 @@ func (h *UserHandler) registerRoutes() {
 }
 
 func (h *UserHandler) handleRegister(c *fiber.Ctx) error {
-	var form RegisterForm
-	if err := c.BodyParser(&form); err != nil {
-		h.logger.Error("Failed to parse registration form", slog.String("error", err.Error()))
-		return c.Status(fiber.StatusBadRequest).SendString("Invalid form data")
+	form := RegisterForm{
+		Name:     c.FormValue("name"),
+		Email:    c.FormValue("email"),
+		Password: c.FormValue("password"),
 	}
 
 	email, err := h.repository.CreateUser(form)

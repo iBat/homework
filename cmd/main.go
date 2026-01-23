@@ -35,7 +35,7 @@ func main() {
 
 	// Initialize handlers
 	pages.NewPagesHandler(app)
-	api.NewApiHandler(app)
+	api.NewApiHandler(app, userRepository, logger)
 	users.NewUserHandler(app, userRepository, logger)
 
 	if err := app.Listen(":3000"); err != nil {
