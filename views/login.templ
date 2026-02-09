@@ -1,0 +1,45 @@
+package views
+
+import "iBat/homework/views/layout"
+import "iBat/homework/views/components"
+
+templ Login() {
+    @LoginFormStyle()
+    @layout.Layout(layout.LayoutProps{
+        Title: "Вход на сайт",
+        Description: "Вход на сайт",
+    }) {
+        <main>
+            @layout.Header("Вход на сайт")
+
+            <div id="login-result"></div>
+            <div class="login-form">
+                <form hx-post="/api/login" hx-trigger="submit" hx-target="#login-result" hx-swap="innerHTML">
+                    <div class="login-form__inputs">
+                        @components.Input(components.InputProps{
+                            Label: "Email",
+                            Name: "email",
+                        })
+                        @components.Input(components.InputProps{
+                            Label: "Пароль",
+                            Name: "password",
+                            Type: "password",
+                        })
+                    </div>
+                    @components.SubmitButton() {
+                        <div class="login-form__submit">Войти</div>
+                    }
+                </form>
+            </div>
+        </main>
+    }
+}
+
+templ LoginFormStyle() {
+    <style>
+        .login-form__inputs {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+}

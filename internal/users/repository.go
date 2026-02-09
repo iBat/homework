@@ -55,3 +55,18 @@ func (r *UserRepository) GetUserByEmail(email string) (*User, error) {
 	}
 	return &user, nil
 }
+
+func (r *UserRepository) ValidateUserPassword(email string, password string) (*User, error) {
+	user, err := r.GetUserByEmail(email)
+	if err != nil {
+		return nil, err
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if err != nil {
+		r.Logger.Warn("Invalid password attempt", slog.String("email", email))
+		return nil, err
+	}
+	r.Logger.Info("User authenticated successfully", slog.String("email", email))
+	return user, nil
+}
