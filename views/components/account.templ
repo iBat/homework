@@ -2,15 +2,30 @@ package components
 
 templ Account() {
     @AccountStyle()
-    <a class="account-container" href="/register">
-        <img class="account-avatar" src="/public/images/avatar.png" alt="User Avatar" />
-        <span class="account-username">Username</span>
-    </a>
+    <div class="account">
+        {{ email := ctx.Value("email").(string) }}
+        if email == "" {
+            <a class="login-container" href="/login">
+                <span class="login-text">Войти</span>
+            </a>
+            <a class="register-container" href="/register">
+                <img class="account-avatar" src="/public/images/avatar.png" alt="User Avatar" />
+                <span class="account-username">Регистрация</span>
+            </a>
+        } else {
+            <a class="account-info"
+                    hx-get="/api/logout"
+                    hx-trigger="click">
+                <img class="account-avatar" src="/public/images/avatar.png" alt="User Avatar" />
+                <span class="account-username">{ email }</span>
+            </a>
+        }
+    </div>
 }
 
 templ AccountStyle() {
     <style>
-        .account-container {
+        .register-container {
             display: flex;
             align-items: center;
             gap: 10px;

@@ -33,7 +33,36 @@ func Account() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<a class=\"account-container\" href=\"/register\"><img class=\"account-avatar\" src=\"/public/images/avatar.png\" alt=\"User Avatar\"> <span class=\"account-username\">Username</span></a>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"account\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		email := ctx.Value("email").(string)
+		if email == "" {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<a class=\"login-container\" href=\"/login\"><span class=\"login-text\">Войти</span></a> <a class=\"register-container\" href=\"/register\"><img class=\"account-avatar\" src=\"/public/images/avatar.png\" alt=\"User Avatar\"> <span class=\"account-username\">Регистрация</span></a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<a class=\"account-info\" hx-get=\"/api/logout\" hx-trigger=\"click\"><img class=\"account-avatar\" src=\"/public/images/avatar.png\" alt=\"User Avatar\"> <span class=\"account-username\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var2 string
+			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(email)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/components/account.templ`, Line: 20, Col: 54}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</span></a>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -57,12 +86,12 @@ func AccountStyle() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var2 == nil {
-			templ_7745c5c3_Var2 = templ.NopComponent
+		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var3 == nil {
+			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<style>\n        .account-container {\n            display: flex;\n            align-items: center;\n            gap: 10px;\n        }\n\n        .account-avatar {\n            width: 40px;\n            height: 40px;\n            border-radius: 50%;\n        }\n\n        .account-username {\n            color: var(--color-white);\n            font-size: 16px;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\n        .register-container {\n            display: flex;\n            align-items: center;\n            gap: 10px;\n        }\n\n        .account-avatar {\n            width: 40px;\n            height: 40px;\n            border-radius: 50%;\n        }\n\n        .account-username {\n            color: var(--color-white);\n            font-size: 16px;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
