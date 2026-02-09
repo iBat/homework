@@ -60,7 +60,17 @@ func (h *ApiHandler) register(c *fiber.Ctx) error {
 		if err != nil {
 			comp = components.Notification("Ошибка при создании пользователя", components.NotificationFail)
 		} else {
-			comp = components.Notification("Пользователь успешно создан", components.NotificationSuccess)
+			sess, err := h.session.Get(c)
+			if err != nil {
+				panic(err)
+			}
+			sess.Set("email", form.Email)
+			if err := sess.Save(); err != nil {
+				panic(err)
+			}
+			h.logger.Info("User registered successfully", slog.String("email", form.Email))
+			c.Response().Header.Set("HX-Redirect", "/")
+			return c.Redirect("/", http.StatusOK)
 		}
 	}
 	time.Sleep(time.Second * 2)
